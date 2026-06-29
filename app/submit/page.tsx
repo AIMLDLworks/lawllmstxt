@@ -6,7 +6,7 @@ import jurisdictions from "@/data/taxonomy/jurisdictions.json";
 
 // --- configure these for your repo ---
 const GITHUB_OWNER = "your-org";
-const GITHUB_REPO = "lawllmtxt";
+const GITHUB_REPO = "lawllmstxt";
 const GITHUB_BRANCH = "main";
 
 const slugify = (s: string) =>

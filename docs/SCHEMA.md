@@ -9,7 +9,7 @@ the `slug`. Canonical types live in `lib/schema.ts`; the CI validator in
 | Field | Type | Required | Public | Notes |
 |-------|------|----------|--------|-------|
 | `schemaVersion` | number | yes | yes | Currently `1`. |
-| `id` | string | auto | yes | Stable LawLLMTxt ID, e.g. `LX-000001`. Assigned by maintainer on merge. |
+| `id` | string | auto | yes | Stable LawLLMsTxt ID, e.g. `LX-000001`. Assigned by maintainer on merge. |
 | `slug` | string | yes | yes | URL slug; must equal the filename. |
 | `firmName` | string | **yes** | yes | Display name. |
 | `websiteUrl` | string (URL) | **yes** | yes | Canonical firm site. |

@@ -1,10 +1,10 @@
-# LawLLMTxt
+# LawLLMsTxt
 
 **The `llms.txt` directory for U.S. law firms.** A public data layer between AI
 systems and law firms' `llms.txt` files — so AI assistants can access accurate,
 structured, verified information about each firm.
 
-LawLLMTxt is a **directory / open dataset**. It is *not* attorney advertising,
+LawLLMsTxt is a **directory / open dataset**. It is *not* attorney advertising,
 *not* a lawyer referral service, and *not* legal advice. A listing is not an
 endorsement.
 

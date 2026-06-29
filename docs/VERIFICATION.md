@@ -1,6 +1,6 @@
 # Bar Verification
 
-A "Bar-verified" badge is LawLLMTxt's core trust signal. This explains what can be
+A "Bar-verified" badge is LawLLMsTxt's core trust signal. This explains what can be
 automated, what can't, and the exact manual process.
 
 ## Can it be fully automated for all 50 states?

@@ -1,8 +1,8 @@
 {
-  "name": "lawllmtxt",
+  "name": "lawllmstxt",
   "version": "0.1.0",
   "private": true,
-  "description": "LawLLMTxt — the llms.txt directory for U.S. law firms. A public data layer between LLMs and law firms' llms.txt files.",
+  "description": "LawLLMsTxt — the llms.txt directory for U.S. law firms. A public data layer between LLMs and law firms' llms.txt files.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

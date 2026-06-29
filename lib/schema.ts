@@ -1,4 +1,4 @@
-// Canonical TypeScript types for a LawLLMTxt firm record.
+// Canonical TypeScript types for a LawLLMsTxt firm record.
 // The JSON files in /data/firms/*.json must conform to this shape.
 // Keep this in sync with scripts/validate-firms.mjs (CI validator).
 
@@ -25,7 +25,7 @@ export interface Location {
 
 export interface Firm {
   schemaVersion: number;
-  id: string;                 // stable LawLLMTxt ID, e.g. "LX-000001"
+  id: string;                 // stable LawLLMsTxt ID, e.g. "LX-000001"
   slug: string;               // URL slug, matches the filename
   firmName: string;
   websiteUrl: string;

@@ -19,9 +19,9 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const firm = getFirmBySlug(params.slug);
-  if (!firm) return { title: "Firm not found — LawLLMTxt" };
+  if (!firm) return { title: "Firm not found — LawLLMsTxt" };
   return {
-    title: `${firm.firmName} — LawLLMTxt`,
+    title: `${firm.firmName} — LawLLMsTxt`,
     description: firm.description,
   };
 }

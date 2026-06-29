@@ -42,10 +42,10 @@ restart your computer and try again.
 2. Go to the project folder by pasting this and pressing Enter:
 
 ```
-cd "D:\LLMs txt directory Ganga\lawllmtxt"
+cd "D:\LLMs txt directory Ganga\lawllmstxt"
 ```
 
-The line should now start with `D:\LLMs txt directory Ganga\lawllmtxt>`.
+The line should now start with `D:\LLMs txt directory Ganga\lawllmstxt>`.
 
 ---
 
@@ -71,7 +71,7 @@ npm run dev
 You'll see: `Local: http://localhost:3000`.
 
 Open a web browser and go to **http://localhost:3000**.
-You should see the LawLLMTxt directory with two example firms.
+You should see the LawLLMsTxt directory with two example firms.
 
 To stop the app later: click the Command Prompt window and press **Ctrl + C**.
 
@@ -105,7 +105,7 @@ You should see `All firm records valid.`
 ## Phase 5 — Put your code on GitHub
 
 1. Go to https://github.com/new
-2. **Repository name:** `lawllmtxt` (or any name). Leave it **Public**.
+2. **Repository name:** `lawllmstxt` (or any name). Leave it **Public**.
    Do **not** tick "Add a README". Click **Create repository**.
 3. GitHub shows commands. Ignore them — use these instead. Back in Command
    Prompt (in the project folder), run these lines **one at a time**.
@@ -114,9 +114,9 @@ You should see `All firm records valid.`
 ```
 git init
 git add .
-git commit -m "Initial LawLLMTxt directory"
+git commit -m "Initial LawLLMsTxt directory"
 git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/lawllmtxt.git
+git remote add origin https://github.com/YOUR-USERNAME/lawllmstxt.git
 git push -u origin main
 ```
 
@@ -129,10 +129,10 @@ do that. When it finishes, refresh your GitHub repo page; your files are there.
 
 1. Go to https://vercel.com and sign in with GitHub.
 2. Click **Add New… → Project**.
-3. Find your `lawllmtxt` repository and click **Import**.
+3. Find your `lawllmstxt` repository and click **Import**.
 4. Leave all settings as-is (Vercel auto-detects Next.js). Click **Deploy**.
 5. Wait ~1–2 minutes. You'll get a live URL like
-   `https://lawllmtxt-xxxx.vercel.app`. **That's your live website.**
+   `https://lawllmstxt-xxxx.vercel.app`. **That's your live website.**
 
 ---
 
@@ -144,11 +144,11 @@ You can edit files on GitHub directly (pencil icon) or in VS Code.
 1. In `app/submit/page.tsx`, near the top, set:
    ```ts
    const GITHUB_OWNER = "YOUR-USERNAME";   // your GitHub username
-   const GITHUB_REPO  = "lawllmtxt";        // your repo name
+   const GITHUB_REPO  = "lawllmstxt";        // your repo name
    ```
 2. In `app/llms.txt/route.ts`, set your real domain:
    ```ts
-   const base = "https://lawllmtxt-xxxx.vercel.app"; // your Vercel URL
+   const base = "https://lawllmstxt-xxxx.vercel.app"; // your Vercel URL
    ```
 3. Save. If editing on GitHub, click **Commit changes**. Vercel automatically
    redeploys within a minute. If editing locally, push the changes:
