@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "LX-000002",
+  "slug": "garcia-immigration",
+  "firmName": "Garcia Immigration Group",
+  "websiteUrl": "https://www.example-garciaimmigration.com",
+  "llmsTxtUrl": "https://www.example-garciaimmigration.com/llms.txt",
+  "llmsFullTxtUrl": null,
+  "description": "Full-service immigration firm handling family-based petitions, asylum, and business visas nationwide.",
+  "jurisdictions": ["TX", "US"],
+  "practiceAreas": ["immigration"],
+  "locations": [{ "city": "Houston", "state": "TX" }],
+  "firmSize": "midsize",
+  "yearEstablished": 2015,
+  "languages": ["English", "Spanish"],
+  "feeModel": ["flat", "free-consultation"],
+  "barAdmissions": [
+    { "state": "TX", "barNumber": "00000000", "attorneyName": "Luis Garcia" }
+  ],
+  "score": 0,
+  "status": "verified",
+  "verified": true,
+  "verifiedDate": "2026-06-20",
+  "verificationSource": "https://www.texasbar.com/AM/Template.cfm?Section=Find_A_Lawyer",
+  "dateAdded": "2026-06-10",
+  "lastVerified": "2026-06-20",
+  "submitterEmail": "contact@example-garciaimmigration.com"
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "LX-000001",
+  "slug": "smith-injury-law",
+  "firmName": "Smith Injury Law, LLP",
+  "websiteUrl": "https://www.example-smithinjury.com",
+  "llmsTxtUrl": "https://www.example-smithinjury.com/llms.txt",
+  "llmsFullTxtUrl": "https://www.example-smithinjury.com/llms-full.txt",
+  "description": "Plaintiff-side personal injury and medical malpractice firm representing individuals across California.",
+  "jurisdictions": ["CA"],
+  "practiceAreas": ["personal-injury", "medical-malpractice"],
+  "locations": [{ "city": "Los Angeles", "state": "CA" }],
+  "firmSize": "small",
+  "yearEstablished": 2009,
+  "languages": ["English", "Spanish"],
+  "feeModel": ["contingency", "free-consultation"],
+  "barAdmissions": [
+    { "state": "CA", "barNumber": "000000", "attorneyName": "Jane Smith" }
+  ],
+  "score": 0,
+  "status": "pending",
+  "verified": false,
+  "verifiedDate": null,
+  "verificationSource": null,
+  "dateAdded": "2026-06-29",
+  "lastVerified": null,
+  "submitterEmail": "intake@example-smithinjury.com"
+}
