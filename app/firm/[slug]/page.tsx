@@ -13,15 +13,11 @@ export function generateStaticParams() {
   return getAllFirms().map((f) => ({ slug: f.slug }));
 }
 
-export function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Metadata {
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const firm = getFirmBySlug(params.slug);
-  if (!firm) return { title: "Firm not found — LawLLMsTxt" };
+  if (!firm) return { title: "Firm not found - LawLLMsTxt" };
   return {
-    title: `${firm.firmName} — LawLLMsTxt`,
+    title: firm.firmName + " - LawLLMsTxt",
     description: firm.description,
   };
 }
@@ -30,8 +26,26 @@ export default function FirmPage({ params }: { params: { slug: string } }) {
   const firm = getFirmBySlug(params.slug);
   if (!firm) notFound();
 
+  // Structured data so AI / search engines understand this is a law firm listing.
+  const firmLd = {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    name: firm.firmName,
+    description: firm.description,
+    url: firm.websiteUrl,
+    areaServed: firm.jurisdictions.map(jurisdictionName),
+    knowsAbout: firm.practiceAreas.map(practiceLabel),
+    address: firm.locations.map((l) => ({
+      "@type": "PostalAddress",
+      addressLocality: l.city,
+      addressRegion: l.state,
+      addressCountry: "US",
+    })),
+  };
+
   return (
     <article className="mx-auto max-w-2xl">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(firmLd) }} />
       <a href="/" className="text-sm text-brand-accent hover:underline">
         &larr; Back to directory
       </a>
@@ -65,11 +79,11 @@ export default function FirmPage({ params }: { params: { slug: string } }) {
           {firm.practiceAreas.map(practiceLabel).join(", ")}
         </Field>
         <Field label="Locations">
-          {firm.locations.map((l) => `${l.city}, ${l.state}`).join("; ") || "—"}
+          {firm.locations.map((l) => l.city + ", " + l.state).join("; ") || "-"}
         </Field>
         <Field label="Firm size">{firm.firmSize}</Field>
-        <Field label="Established">{firm.yearEstablished ?? "—"}</Field>
-        <Field label="Languages">{firm.languages.join(", ") || "—"}</Field>
+        <Field label="Established">{firm.yearEstablished ?? "-"}</Field>
+        <Field label="Languages">{firm.languages.join(", ") || "-"}</Field>
         <Field label="Best-practice score">{firm.score}/100</Field>
         <Field label="Status">{firm.status}</Field>
       </dl>
@@ -84,9 +98,7 @@ export default function FirmPage({ params }: { params: { slug: string } }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-xs font-medium uppercase tracking-wide text-slate-400">
-        {label}
-      </dt>
+      <dt className="text-xs font-medium uppercase tracking-wide text-slate-400">{label}</dt>
       <dd className="mt-0.5 text-sm text-slate-800">{children}</dd>
     </div>
   );
