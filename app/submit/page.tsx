@@ -4,6 +4,8 @@ import { useState } from "react";
 import practiceAreas from "@/data/taxonomy/practice-areas.json";
 import jurisdictions from "@/data/taxonomy/jurisdictions.json";
 
+const GENERATOR_URL = "https://firepencil.ai/llms-txt-generator/";
+
 export default function SubmitPage() {
   const [form, setForm] = useState({
     firmName: "",
@@ -77,10 +79,32 @@ export default function SubmitPage() {
         accurately. Verified firms earn a trust badge.
       </p>
 
+      <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+        <p className="font-medium text-slate-800">New to llms.txt? Three quick steps:</p>
+        <ol className="mt-2 list-decimal space-y-1 pl-5">
+          <li>
+            <a href={GENERATOR_URL} target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Generate your llms.txt file</a> for free.
+          </li>
+          <li>
+            Upload it to your website so it opens at <span className="font-mono text-slate-700">https://yourfirm.com/llms.txt</span>.
+            On WordPress, add it with your SEO plugin or upload to the site root; on cPanel hosting,
+            put the file in the <span className="font-mono">public_html</span> folder; on other site
+            builders, add a file at the site root.
+          </li>
+          <li>Open that link in your browser to confirm it loads, then paste it below.</li>
+        </ol>
+      </div>
+
       <div className="mt-6 space-y-4">
         <Text label="Firm name *" value={form.firmName} onChange={(v) => update("firmName", v)} />
-        <Text label="Website URL *" value={form.websiteUrl} onChange={(v) => update("websiteUrl", v)} placeholder="https://" />
-        <Text label="llms.txt URL *" value={form.llmsTxtUrl} onChange={(v) => update("llmsTxtUrl", v)} placeholder="https://yourfirm.com/llms.txt" />
+        <Text label="Website URL *" value={form.websiteUrl} onChange={(v) => update("websiteUrl", v)} placeholder="https://yourfirm.com" />
+        <div>
+          <Text label="llms.txt URL *" value={form.llmsTxtUrl} onChange={(v) => update("llmsTxtUrl", v)} placeholder="https://yourfirm.com/llms.txt" />
+          <p className="mt-1 text-xs text-slate-500">
+            The public link to your llms.txt on your own site, e.g. https://yourfirm.com/llms.txt. It
+            must already be live - open it in a browser to check before submitting.
+          </p>
+        </div>
         <Area label="Short description *" value={form.description} onChange={(v) => update("description", v)} />
 
         <Multi
