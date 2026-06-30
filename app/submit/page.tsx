@@ -4,14 +4,6 @@ import { useState } from "react";
 import practiceAreas from "@/data/taxonomy/practice-areas.json";
 import jurisdictions from "@/data/taxonomy/jurisdictions.json";
 
-// --- configure these for your repo ---
-const GITHUB_OWNER = "your-org";
-const GITHUB_REPO = "lawllmstxt";
-const GITHUB_BRANCH = "main";
-
-const slugify = (s: string) =>
-  s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-
 export default function SubmitPage() {
   const [form, setForm] = useState({
     firmName: "",
@@ -26,69 +18,63 @@ export default function SubmitPage() {
     barNumber: "",
     attorneyName: "",
   });
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const update = (k: string, v: unknown) => setForm((f) => ({ ...f, [k]: v }));
-
   const toggle = (k: "jurisdictions" | "practiceAreas", v: string) =>
-    setForm((f) => ({
-      ...f,
-      [k]: f[k].includes(v) ? f[k].filter((x) => x !== v) : [...f[k], v],
-    }));
-
-  function buildRecord() {
-    const slug = slugify(form.firmName);
-    return {
-      schemaVersion: 1,
-      id: "LX-PENDING",
-      slug,
-      firmName: form.firmName,
-      websiteUrl: form.websiteUrl,
-      llmsTxtUrl: form.llmsTxtUrl,
-      llmsFullTxtUrl: null,
-      description: form.description,
-      jurisdictions: form.jurisdictions,
-      practiceAreas: form.practiceAreas,
-      locations: [],
-      firmSize: form.firmSize,
-      yearEstablished: null,
-      languages: [],
-      feeModel: [],
-      barAdmissions: form.barNumber
-        ? [{ state: form.barState, barNumber: form.barNumber, attorneyName: form.attorneyName }]
-        : [],
-      score: 0,
-      status: "pending",
-      verified: false,
-      verifiedDate: null,
-      verificationSource: null,
-      dateAdded: new Date().toISOString().slice(0, 10),
-      lastVerified: null,
-      submitterEmail: form.submitterEmail,
-    };
-  }
-
-  function openPullRequest() {
-    const record = buildRecord();
-    const filename = `data/firms/${record.slug}.json`;
-    const value = JSON.stringify(record, null, 2);
-    const url =
-      `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/new/${GITHUB_BRANCH}` +
-      `?filename=${encodeURIComponent(filename)}&value=${encodeURIComponent(value)}`;
-    window.open(url, "_blank");
-  }
+    setForm((f) => ({ ...f, [k]: f[k].includes(v) ? f[k].filter((x) => x !== v) : [...f[k], v] }));
 
   const valid =
-    form.firmName && form.websiteUrl && form.llmsTxtUrl && form.description &&
+    !!form.firmName && !!form.websiteUrl && !!form.llmsTxtUrl && !!form.description &&
     form.jurisdictions.length > 0 && form.practiceAreas.length > 0;
+
+  async function submitFirm() {
+    setStatus("sending");
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus("done");
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setErrorMsg(data.error || "Something went wrong. Please try again.");
+        setStatus("error");
+      }
+    } catch {
+      setErrorMsg("Network error. Please try again.");
+      setStatus("error");
+    }
+  }
+
+  if (status === "done") {
+    return (
+      <div className="mx-auto max-w-2xl text-center">
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-6 py-12">
+          <h1 className="text-2xl font-bold text-emerald-700">Thanks - your firm has been submitted!</h1>
+          <p className="mx-auto mt-3 max-w-md text-sm text-slate-600">
+            Your firm will appear in the directory shortly, marked as Pending. Once we verify your
+            bar record, it earns the Verified trust badge. No further action is needed.
+          </p>
+          <a href="/" className="mt-6 inline-block rounded-lg bg-brand px-5 py-2.5 text-sm font-medium text-white transition hover:bg-brand-accent">
+            Back to the directory
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="text-2xl font-bold text-brand">Submit your firm</h1>
+      <h1 className="text-2xl font-bold text-brand">Get your law firm found by AI</h1>
       <p className="mt-2 text-sm text-slate-600">
-        Submitting opens a pre-filled pull request on GitHub. A maintainer
-        validates your <code>llms.txt</code> and checks your bar record before the
-        listing goes live. No account data is stored on a server &mdash; the
-        directory is an open, public dataset.
+        Join the largest llms.txt directory for U.S. law firms. It is free, takes about two
+        minutes, and helps AI assistants like ChatGPT and Google AI find and recommend your firm
+        accurately. Verified firms earn a trust badge.
       </p>
 
       <div className="mt-6 space-y-4">
@@ -110,17 +96,10 @@ export default function SubmitPage() {
           onToggle={(v) => toggle("practiceAreas", v)}
         />
 
-        <Select
-          label="Firm size"
-          value={form.firmSize}
-          onChange={(v) => update("firmSize", v)}
-          options={["solo", "small", "midsize", "large"]}
-        />
+        <Select label="Firm size" value={form.firmSize} onChange={(v) => update("firmSize", v)} options={["solo", "small", "midsize", "large"]} />
 
         <fieldset className="rounded-lg border border-slate-200 p-4">
-          <legend className="px-1 text-sm font-medium text-slate-700">
-            Bar admission (for verification)
-          </legend>
+          <legend className="px-1 text-sm font-medium text-slate-700">Bar admission (for verification)</legend>
           <div className="grid gap-3 sm:grid-cols-3">
             <Text label="State" value={form.barState} onChange={(v) => update("barState", v)} placeholder="CA" />
             <Text label="Bar number" value={form.barNumber} onChange={(v) => update("barNumber", v)} />
@@ -128,20 +107,18 @@ export default function SubmitPage() {
           </div>
         </fieldset>
 
-        <Text label="Contact email (internal only)" value={form.submitterEmail} onChange={(v) => update("submitterEmail", v)} />
+        <Text label="Contact email" value={form.submitterEmail} onChange={(v) => update("submitterEmail", v)} />
+
+        {status === "error" && <p className="text-sm text-red-600">{errorMsg}</p>}
 
         <button
-          disabled={!valid}
-          onClick={openPullRequest}
+          disabled={!valid || status === "sending"}
+          onClick={submitFirm}
           className="w-full rounded-lg bg-brand px-4 py-2.5 font-medium text-white transition enabled:hover:bg-brand-accent disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Open pull request on GitHub
+          {status === "sending" ? "Submitting..." : "Submit my firm"}
         </button>
-        {!valid && (
-          <p className="text-xs text-slate-400">
-            Fill required fields (*) to enable submission.
-          </p>
-        )}
+        {!valid && <p className="text-xs text-slate-400">Fill required fields (*) to enable submission.</p>}
       </div>
     </div>
   );
