@@ -8,6 +8,7 @@ const OWNER = process.env.GITHUB_OWNER;
 const REPO = process.env.GITHUB_REPO;
 const BRANCH = process.env.GITHUB_BRANCH || "main";
 const TOKEN = process.env.GITHUB_TOKEN;
+const FREE_DAYS = 30;
 
 const validAreas = new Set((practiceAreas as { id: string }[]).map((p) => p.id));
 const validJur = new Set((jurisdictions as { code: string }[]).map((j) => j.code));
@@ -40,8 +41,8 @@ export async function POST(req: Request) {
   const attorneyName = (body.attorneyName || "").trim();
   const submitterEmail = (body.submitterEmail || "").trim();
 
-  if (!firmName || !websiteUrl || !llmsTxtUrl || !description || jur.length === 0 || areas.length === 0) {
-    return NextResponse.json({ error: "Please fill in all required fields." }, { status: 400 });
+  if (!firmName || !websiteUrl || !llmsTxtUrl || !description || jur.length === 0 || areas.length === 0 || !barState || !barNumber || !attorneyName) {
+    return NextResponse.json({ error: "Please fill in all required fields, including bar admission details." }, { status: 400 });
   }
   if (!/^https?:\/\//.test(websiteUrl) || !/^https?:\/\//.test(llmsTxtUrl)) {
     return NextResponse.json({ error: "Website and llms.txt must be full URLs starting with https://." }, { status: 400 });
@@ -59,13 +60,17 @@ export async function POST(req: Request) {
     "Content-Type": "application/json",
   };
 
-  // Avoid overwriting an existing firm with the same slug.
   let path = "data/firms/" + slug + ".json";
   const check = await fetch("https://api.github.com/repos/" + OWNER + "/" + REPO + "/contents/" + path + "?ref=" + BRANCH, { headers });
   if (check.status === 200) {
     slug = slug + "-" + Date.now().toString(36);
     path = "data/firms/" + slug + ".json";
   }
+
+  const today = new Date();
+  const expiry = new Date();
+  expiry.setDate(today.getDate() + FREE_DAYS);
+  const expiresAt = expiry.toISOString().slice(0, 10);
 
   const record = {
     schemaVersion: 1,
@@ -83,13 +88,15 @@ export async function POST(req: Request) {
     yearEstablished: null,
     languages: [],
     feeModel: [],
-    barAdmissions: barNumber ? [{ state: barState, barNumber, attorneyName }] : [],
+    barAdmissions: [{ state: barState, barNumber, attorneyName }],
     score: 0,
     status: "pending",
     verified: false,
     verifiedDate: null,
     verificationSource: null,
-    dateAdded: new Date().toISOString().slice(0, 10),
+    plan: "free",
+    expiresAt,
+    dateAdded: today.toISOString().slice(0, 10),
     lastVerified: null,
     submitterEmail,
   };
@@ -99,11 +106,7 @@ export async function POST(req: Request) {
   const put = await fetch("https://api.github.com/repos/" + OWNER + "/" + REPO + "/contents/" + path, {
     method: "PUT",
     headers,
-    body: JSON.stringify({
-      message: "Add firm (pending): " + firmName,
-      content,
-      branch: BRANCH,
-    }),
+    body: JSON.stringify({ message: "Add firm (free, pending): " + firmName, content, branch: BRANCH }),
   });
 
   if (!put.ok) {

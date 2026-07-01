@@ -14,14 +14,14 @@
   "yearEstablished": 2009,
   "languages": ["English", "Spanish"],
   "feeModel": ["contingency", "free-consultation"],
-  "barAdmissions": [
-    { "state": "CA", "barNumber": "000000", "attorneyName": "Jane Smith" }
-  ],
+  "barAdmissions": [{ "state": "CA", "barNumber": "000000", "attorneyName": "Jane Smith" }],
   "score": 0,
   "status": "pending",
   "verified": false,
   "verifiedDate": null,
   "verificationSource": null,
+  "plan": "free",
+  "expiresAt": "2099-12-31",
   "dateAdded": "2026-06-29",
   "lastVerified": null,
   "submitterEmail": "intake@example-smithinjury.com"

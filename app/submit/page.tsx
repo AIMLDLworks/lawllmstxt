@@ -29,7 +29,8 @@ export default function SubmitPage() {
 
   const valid =
     !!form.firmName && !!form.websiteUrl && !!form.llmsTxtUrl && !!form.description &&
-    form.jurisdictions.length > 0 && form.practiceAreas.length > 0;
+    form.jurisdictions.length > 0 && form.practiceAreas.length > 0 &&
+    !!form.barState && !!form.barNumber && !!form.attorneyName;
 
   async function submitFirm() {
     setStatus("sending");
@@ -123,11 +124,11 @@ export default function SubmitPage() {
         <Select label="Firm size" value={form.firmSize} onChange={(v) => update("firmSize", v)} options={["solo", "small", "midsize", "large"]} />
 
         <fieldset className="rounded-lg border border-slate-200 p-4">
-          <legend className="px-1 text-sm font-medium text-slate-700">Bar admission (for verification)</legend>
+          <legend className="px-1 text-sm font-medium text-slate-700">Bar admission - required for verification</legend>
           <div className="grid gap-3 sm:grid-cols-3">
-            <Text label="State" value={form.barState} onChange={(v) => update("barState", v)} placeholder="CA" />
-            <Text label="Bar number" value={form.barNumber} onChange={(v) => update("barNumber", v)} />
-            <Text label="Attorney name" value={form.attorneyName} onChange={(v) => update("attorneyName", v)} />
+            <Text label="State *" value={form.barState} onChange={(v) => update("barState", v)} placeholder="CA" />
+            <Text label="Bar number *" value={form.barNumber} onChange={(v) => update("barNumber", v)} />
+            <Text label="Attorney name *" value={form.attorneyName} onChange={(v) => update("attorneyName", v)} />
           </div>
         </fieldset>
 

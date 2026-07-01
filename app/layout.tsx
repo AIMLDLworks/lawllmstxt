@@ -25,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Link>
             <nav className="flex items-center gap-5 text-sm font-medium text-slate-600">
               <Link href="/#directory" className="hover:text-brand">Directory</Link>
+              <Link href="/#pricing" className="hover:text-brand">Pricing</Link>
               <a href={GENERATOR_URL} target="_blank" rel="noopener noreferrer" className="hover:text-brand">
                 Need a llms.txt file?
               </a>
