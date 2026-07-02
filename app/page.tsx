@@ -3,7 +3,6 @@ import ScoreChecker from "@/components/ScoreChecker";
 import { getAllFirms, PRACTICE_AREAS, practiceLabel, daysLeft } from "@/lib/firms";
 
 const BASE = "https://lawllmstxt.com";
-const GENERATOR_URL = "https://firepencil.ai/llms-txt-generator/";
 const LIFETIME_PRICE = "$49";
 const GUMROAD_URL = "https://yourname.gumroad.com/l/lawllmstxt-lifetime"; // replace with your Gumroad product link
 const AVATAR_COLORS = ["#1F3A5F", "#2E75B6", "#1D9E75", "#D85A30", "#7F77DD", "#D4537E"];
@@ -21,9 +20,9 @@ const BENEFITS = [
 ];
 
 const STEPS = [
-  { title: "Create your llms.txt", body: "Use the free generator to build your file in minutes." },
-  { title: "Publish it on your site", body: "Upload it so it opens at yourfirm.com/llms.txt." },
-  { title: "Submit the link", body: "Add it here. Verified firms earn the trust badge." },
+  { title: "Have your llms.txt live", body: "Make sure it opens at yourfirm.com/llms.txt." },
+  { title: "Submit the link", body: "Add your llms.txt link and firm details here." },
+  { title: "Get verified and listed", body: "We bar-verify your firm and publish it. Go Lifetime to stay listed." },
 ];
 
 const FAQS = [

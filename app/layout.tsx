@@ -3,10 +3,7 @@ import Link from "next/link";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 
-// Roboto - a clean, highly legible typeface, great for professional UI.
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"], display: "swap" });
-
-const GENERATOR_URL = "https://firepencil.ai/llms-txt-generator/";
 
 export const metadata: Metadata = {
   title: "LawLLMsTxt - the largest llms.txt directory for U.S. law firms",
@@ -26,9 +23,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav className="flex items-center gap-5 text-sm font-medium text-slate-600">
               <Link href="/#directory" className="hover:text-brand">Directory</Link>
               <Link href="/#pricing" className="hover:text-brand">Pricing</Link>
-              <a href={GENERATOR_URL} target="_blank" rel="noopener noreferrer" className="hover:text-brand">
-                Need a llms.txt file?
-              </a>
               <Link href="/submit" className="rounded-lg bg-brand px-3.5 py-2 text-white transition hover:bg-brand-accent">
                 Submit your llms.txt
               </Link>

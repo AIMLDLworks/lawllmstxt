@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
+import { getAllFirms } from "@/lib/firms";
 
 export const runtime = "nodejs";
+
+function safeHost(url: string): string {
+  try { return new URL(url).hostname.replace(/^www\./, "").toLowerCase(); } catch { return ""; }
+}
 
 function toLlmsUrl(input: string): string | null {
   let s = (input || "").trim();
@@ -41,18 +46,33 @@ export async function POST(req: Request) {
   const text = main.text || "";
   const found = main.ok && text.trim().length > 0;
 
-  const breakdown: { label: string; points: number; max: number; ok: boolean }[] = [];
-  const add = (label: string, ok: boolean, max: number) => breakdown.push({ label, ok, max, points: ok ? max : 0 });
+  const breakdown: { label: string; points: number; max: number; ok: boolean; group: "file" | "distribution" }[] = [];
+  const add = (label: string, ok: boolean, max: number, group: "file" | "distribution") => breakdown.push({ label, ok, max, points: ok ? max : 0, group });
 
-  add("llms.txt is live and reachable", found, 40);
-  add("Has a clear title (H1 heading)", found && /^#\s+.+/m.test(text), 15);
-  add("Has a summary blockquote", found && /^>\s+.+/m.test(text), 15);
-  add("Has structured sections", found && /^##\s+.+/m.test(text), 10);
-  add("Links include descriptions", found && /\[[^\]]+\]\([^)]+\)\s*:/.test(text), 10);
-
+  // File quality (max 80)
+  add("llms.txt is live and reachable", found, 30, "file");
+  add("Has a clear title (H1 heading)", found && /^#\s+.+/m.test(text), 15, "file");
+  add("Has a summary blockquote", found && /^>\s+.+/m.test(text), 10, "file");
+  add("Has structured sections", found && /^##\s+.+/m.test(text), 10, "file");
+  add("Links include descriptions", found && /\[[^\]]+\]\([^)]+\)\s*:/.test(text), 5, "file");
   const full = found ? await fetchText(origin + "/llms-full.txt") : { ok: false, text: "" };
-  add("Provides an llms-full.txt", full.ok && (full.text || "").trim().length > 0, 10);
+  add("Provides an llms-full.txt", full.ok && (full.text || "").trim().length > 0, 10, "file");
 
-  const score = breakdown.reduce((a, b) => a + b.points, 0);
-  return NextResponse.json({ found, score, llmsTxtUrl, breakdown });
+  // Directory presence (max 20) — awarded by being in this directory
+  const qHost = safeHost(llmsTxtUrl);
+  let listed = false, verified = false;
+  try {
+    const firms = getAllFirms();
+    const match = firms.find((f) => safeHost(f.websiteUrl) === qHost || safeHost(f.llmsTxtUrl) === qHost);
+    listed = !!match;
+    verified = !!(match && match.verified);
+  } catch { /* directory not readable at runtime; treat as not listed */ }
+  add("Listed in the LawLLMsTxt directory", listed, 10, "distribution");
+  add("Bar-verified in the directory", verified, 10, "distribution");
+
+  const fileScore = breakdown.filter((b) => b.group === "file").reduce((a, b) => a + b.points, 0);
+  const distScore = breakdown.filter((b) => b.group === "distribution").reduce((a, b) => a + b.points, 0);
+  const score = fileScore + distScore;
+
+  return NextResponse.json({ found, score, fileScore, distScore, listed, verified, llmsTxtUrl, breakdown });
 }
