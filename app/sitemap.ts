@@ -13,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: BASE, lastModified: new Date() },
-    { url: `${BASE}/submit`, lastModified: new Date() },
     ...firmPages,
   ];
 }

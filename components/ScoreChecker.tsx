@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 type Row = { label: string; points: number; max: number; ok: boolean; group: "file" | "distribution" };
 type Result = { found: boolean; score: number; fileScore: number; distScore: number; listed: boolean; verified: boolean; llmsTxtUrl: string; breakdown: Row[] };
@@ -94,7 +93,7 @@ export default function ScoreChecker() {
 
           <div className="mt-4 flex flex-wrap gap-2">
             {!result.listed && (
-              <Link href="/submit" className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-accent">List your firm free (+{distMissing} pts)</Link>
+              <a href="https://lawllmstxt.gumroad.com/l/freelisting" target="_blank" rel="noopener noreferrer" className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-accent">List your firm free (+{distMissing} pts)</a>
             )}
             {result.listed && result.verified && result.fileScore >= 55 && (
               <span className="rounded-lg bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 ring-1 ring-emerald-200">You&rsquo;re all set ✓</span>

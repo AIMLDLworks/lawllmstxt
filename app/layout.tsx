@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav className="flex items-center gap-5 text-sm font-medium text-slate-600">
               <Link href="/#directory" className="hover:text-brand">Directory</Link>
               <Link href="/#pricing" className="hover:text-brand">Pricing</Link>
-              <Link href="/submit" className="rounded-lg bg-brand px-3.5 py-2 text-white transition hover:bg-brand-accent">
+              <Link href="/#pricing" className="rounded-lg bg-brand px-3.5 py-2 text-white transition hover:bg-brand-accent">
                 Submit your llms.txt
               </Link>
             </nav>

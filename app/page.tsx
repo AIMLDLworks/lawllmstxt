@@ -4,7 +4,8 @@ import { getAllFirms, PRACTICE_AREAS, practiceLabel, daysLeft } from "@/lib/firm
 
 const BASE = "https://lawllmstxt.com";
 const LIFETIME_PRICE = "$49";
-const GUMROAD_URL = "https://yourname.gumroad.com/l/lawllmstxt-lifetime"; // replace with your Gumroad product link
+const GUMROAD_URL = "https://lawllmstxt.gumroad.com/l/lifetime";
+const FREE_URL = "https://lawllmstxt.gumroad.com/l/freelisting";
 const AVATAR_COLORS = ["#1F3A5F", "#2E75B6", "#1D9E75", "#D85A30", "#7F77DD", "#D4537E"];
 
 const STATS = [
@@ -111,8 +112,8 @@ export default function HomePage({ searchParams }: { searchParams: { area?: stri
           <code className="rounded bg-white px-1 py-0.5 text-brand ring-1 ring-slate-900/5">llms.txt</code> are the ones that get found and cited. List yours in minutes.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link href="/submit" className="rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-accent hover:shadow-md">Submit your llms.txt</Link>
-          <a href="#pricing" className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-700 ring-1 ring-slate-300 transition hover:text-brand hover:ring-brand-accent">See pricing</a>
+          <a href="#pricing" className="rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-accent hover:shadow-md">Submit your llms.txt</a>
+          <a href="#directory" className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-700 ring-1 ring-slate-300 transition hover:text-brand hover:ring-brand-accent">Browse the directory</a>
         </div>
         <p className="mt-5 text-xs text-slate-400">Free for 1 month &middot; Lifetime listing from {LIFETIME_PRICE} &middot; Bar-verified</p>
       </section>
@@ -183,7 +184,7 @@ export default function HomePage({ searchParams }: { searchParams: { area?: stri
               <li className="flex gap-2"><Check /> Appears in the directory and AI index</li>
               <li className="flex gap-2"><Check /> Removed after 30 days unless upgraded</li>
             </ul>
-            <Link href="/submit" className="mt-6 block rounded-xl bg-white px-4 py-2.5 text-center text-sm font-semibold text-brand ring-1 ring-slate-300 transition hover:ring-brand-accent">List free</Link>
+            <a href={FREE_URL} target="_blank" rel="noopener noreferrer" className="mt-6 block rounded-xl bg-white px-4 py-2.5 text-center text-sm font-semibold text-brand ring-1 ring-slate-300 transition hover:ring-brand-accent">List free for 1 month</a>
           </div>
 
           <div className="relative flex flex-col rounded-2xl bg-brand p-7 text-white shadow-md ring-1 ring-brand">
@@ -209,7 +210,7 @@ export default function HomePage({ searchParams }: { searchParams: { area?: stri
             <h2 className="text-xl font-semibold text-brand">Browse the directory</h2>
             <p className="mt-1 text-sm text-slate-500">{firms.length} firms listed.</p>
           </div>
-          <Link href="/submit" className="rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-accent">+ Add your firm</Link>
+          <a href="#pricing" className="rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-accent">+ Add your firm</a>
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2">
