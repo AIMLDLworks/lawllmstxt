@@ -67,7 +67,7 @@ function PlanTag({ plan, expiresAt }: { plan: string; expiresAt: string | null }
   if (plan === "free" && expiresAt) {
     const d = daysLeft(expiresAt);
     if (d !== null && d <= 7) return <div className="mt-1 text-[11px] font-semibold text-amber-600">Removing soon</div>;
-    return <div className="mt-1 text-[11px] text-slate-400">Free{d !== null ? " · " + d + "d left" : ""}</div>;
+    return <div className="mt-1 text-[11px] text-slate-400">Free{d !== null ? " · " + Math.min(d, 30) + "d left" : ""}</div>;
   }
   return null;
 }
