@@ -6,9 +6,24 @@ import "./globals.css";
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "LawLLMsTxt - the largest llms.txt directory for U.S. law firms",
+  metadataBase: new URL("https://lawllmstxt.com"),
+  title: "LawLLMsTxt - the world's first llms.txt directory for U.S. law firms",
   description:
-    "The largest public directory of llms.txt files published by U.S. law firms, so AI systems can access accurate, structured, verified information about each firm.",
+    "The first public directory of llms.txt files for U.S. law firms, so AI assistants like ChatGPT, Gemini, and Claude can find, understand, and cite your firm accurately.",
+  keywords: ["llms.txt", "law firm directory", "AI visibility", "GEO", "AEO", "legal AI", "ChatGPT law firm", "attorney directory"],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "https://lawllmstxt.com",
+    siteName: "LawLLMsTxt",
+    title: "The world's first llms.txt directory for U.S. law firms",
+    description: "Get your law firm found and cited by AI assistants like ChatGPT, Gemini, and Claude.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The world's first llms.txt directory for U.S. law firms",
+    description: "Get your law firm found and cited by AI assistants like ChatGPT, Gemini, and Claude.",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -24,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/#directory" className="hover:text-brand">Directory</Link>
               <Link href="/#pricing" className="hover:text-brand">Pricing</Link>
               <Link href="/#pricing" className="rounded-lg bg-brand px-3.5 py-2 text-white transition hover:bg-brand-accent">
-                Submit your llms.txt
+                List your firm
               </Link>
             </nav>
           </div>

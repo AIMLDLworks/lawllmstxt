@@ -102,20 +102,29 @@ export default function HomePage({ searchParams }: { searchParams: { area?: stri
   return (
     <div className="space-y-20">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#eef4fb] to-white px-6 py-16 text-center ring-1 ring-slate-900/5 sm:py-20">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#eef4fb] to-white px-6 py-20 text-center ring-1 ring-slate-900/5 sm:py-24">
         <span className="inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-widest text-brand-accent shadow-sm ring-1 ring-slate-900/5">
-          The llms.txt directory for U.S. law firms
+          Get found by AI
         </span>
-        <h1 className="mx-auto mt-5 max-w-3xl text-4xl font-bold tracking-tight text-brand sm:text-5xl">Make sure AI gets your firm right</h1>
+        <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-bold tracking-tight text-brand sm:text-6xl">
+          The world&rsquo;s first llms.txt directory for U.S. law firms
+        </h1>
         <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-          As clients turn to ChatGPT and Google&rsquo;s AI for legal help, the firms with a verified{" "}
-          <code className="rounded bg-white px-1 py-0.5 text-brand ring-1 ring-slate-900/5">llms.txt</code> are the ones that get found and cited. List yours in minutes.
+          Get your law firm found, understood, and cited by AI assistants like ChatGPT, Gemini, and Claude.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href="#pricing" className="rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-accent hover:shadow-md">Submit your llms.txt</a>
+          <a href="#pricing" className="rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-accent hover:shadow-md">List your firm</a>
           <a href="#directory" className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-700 ring-1 ring-slate-300 transition hover:text-brand hover:ring-brand-accent">Browse the directory</a>
         </div>
-        <p className="mt-5 text-xs text-slate-400">Free for 1 month &middot; Lifetime listing from {LIFETIME_PRICE} &middot; Bar-verified</p>
+        <p className="mt-5 text-xs text-slate-400">Free for 1 month &middot; Lifetime from {LIFETIME_PRICE} &middot; Bar-verified</p>
+      </section>
+
+      {/* Why it matters */}
+      <section className="rounded-2xl bg-brand-light/50 px-6 py-12 text-center ring-1 ring-slate-900/5">
+        <h2 className="mx-auto max-w-3xl text-2xl font-bold tracking-tight text-brand sm:text-3xl">Make sure AI gets your firm right</h2>
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
+          When clients ask AI for legal help, the firms with a verified llms.txt are the ones it finds and cites.
+        </p>
       </section>
 
 
