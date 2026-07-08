@@ -15,7 +15,7 @@
   "languages": ["English", "Spanish"],
   "feeModel": ["flat", "free-consultation"],
   "barAdmissions": [{ "state": "TX", "barNumber": "00000000", "attorneyName": "Luis Garcia" }],
-  "score": 0,
+  "score": 90,
   "status": "verified",
   "verified": true,
   "verifiedDate": "2026-06-20",

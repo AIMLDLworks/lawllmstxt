@@ -227,45 +227,43 @@ export default function HomePage({ searchParams }: { searchParams: { area?: stri
           {PRACTICE_AREAS.map((p) => (<FilterTab key={p.id} label={p.label} href={"/?area=" + p.id + "#directory"} active={active === p.id} />))}
         </div>
 
-        <div className="mt-5 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-900/5">
-          <table className="w-full table-fixed border-collapse text-left">
-            <colgroup>
-              <col className="w-[30%]" /><col className="w-[17%]" /><col className="w-[11%]" /><col className="w-[18%]" /><col className="w-[13%]" /><col className="w-[11%]" />
-            </colgroup>
-            <thead>
-              <tr className="border-b border-slate-100 bg-slate-50/60 text-[11px] uppercase tracking-wide text-slate-400">
-                <th className="px-4 py-3 font-medium">Firm</th><th className="px-4 py-3 font-medium">Website</th><th className="px-4 py-3 font-medium">Jurisdictions</th><th className="px-4 py-3 font-medium">Practice areas</th><th className="px-4 py-3 font-medium">Location</th><th className="px-4 py-3 font-medium">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((f) => (
-                <tr key={f.id} className="border-b border-slate-50 align-middle last:border-0 transition hover:bg-slate-50">
-                  <td className="px-4 py-3.5">
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white" style={{ backgroundColor: colorFor(f.firmName) }}>{initials(f.firmName)}</span>
-                      <div className="min-w-0">
-                        <Link href={"/firm/" + f.slug} className="block truncate text-sm font-medium text-brand hover:underline">{f.firmName}</Link>
-                        <span className="block truncate text-xs text-slate-400">{f.description}</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3.5"><a href={f.websiteUrl} target="_blank" rel="nofollow noopener" className="block truncate text-sm text-brand-accent hover:underline">{hostname(f.websiteUrl)}</a></td>
-                  <td className="px-4 py-3.5"><Badges items={f.jurisdictions} /></td>
-                  <td className="px-4 py-3.5"><Badges items={f.practiceAreas.map(practiceLabel)} /></td>
-                  <td className="px-4 py-3.5 text-sm text-slate-600">{f.locations[0] ? f.locations[0].city + ", " + f.locations[0].state : "-"}</td>
-                  <td className="px-4 py-3.5">
-                    {f.verified ? (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />Verified</span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500"><span className="h-1.5 w-1.5 rounded-full bg-slate-400" />Pending</span>
-                    )}
-                    <PlanTag plan={f.plan} expiresAt={f.expiresAt} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {filtered.length === 0 && <p className="px-4 py-8 text-center text-sm text-slate-500">No firms listed in this area yet.</p>}
+        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((f) => (
+            <div key={f.id} className="relative flex flex-col rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-md">
+              <div className="absolute right-3 top-3 flex flex-col items-center justify-center rounded-lg px-2.5 py-1 text-white shadow-sm" style={{ backgroundColor: f.score >= 70 ? "#1D9E75" : f.score >= 40 ? "#D97706" : "#94A3B8" }}>
+                <span className="text-base font-bold leading-none">{f.score}</span>
+                <span className="mt-0.5 text-[8px] font-semibold uppercase tracking-wide leading-none opacity-80">AI score</span>
+              </div>
+              <div className="flex items-center gap-3 pr-16">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white" style={{ backgroundColor: colorFor(f.firmName) }}>{initials(f.firmName)}</span>
+                <div className="min-w-0">
+                  <Link href={"/firm/" + f.slug} className="block truncate font-semibold text-brand hover:underline">{f.firmName}</Link>
+                  <a href={f.websiteUrl} target="_blank" rel="nofollow noopener" className="block truncate text-xs text-brand-accent hover:underline">{hostname(f.websiteUrl)}</a>
+                </div>
+              </div>
+              <p className="mt-3 line-clamp-2 text-sm text-slate-600">{f.description}</p>
+              <div className="mt-3 flex flex-wrap gap-1">
+                {f.practiceAreas.slice(0, 2).map((p) => (<span key={p} className="rounded-md bg-brand-light px-2 py-0.5 text-xs text-brand">{practiceLabel(p)}</span>))}
+                {f.jurisdictions.slice(0, 3).map((j) => (<span key={j} className="rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-600">{j}</span>))}
+              </div>
+              <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
+                <span className="truncate text-xs text-slate-500">{f.locations[0] ? f.locations[0].city + ", " + f.locations[0].state : "United States"}</span>
+                {f.verified ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
+                    Bar-verified
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-500"><span className="h-1.5 w-1.5 rounded-full bg-slate-400" />Pending</span>
+                )}
+              </div>
+              <div className="mt-3 flex items-center justify-between">
+                <PlanTag plan={f.plan} expiresAt={f.expiresAt} />
+                <Link href={"/firm/" + f.slug} className="text-xs font-medium text-brand-accent hover:underline">View profile &rarr;</Link>
+              </div>
+            </div>
+          ))}
+          {filtered.length === 0 && <p className="col-span-full py-8 text-center text-sm text-slate-500">No firms listed in this area yet.</p>}
         </div>
       </section>
 

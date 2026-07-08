@@ -15,7 +15,7 @@
   "languages": ["English", "Spanish"],
   "feeModel": ["contingency", "free-consultation"],
   "barAdmissions": [{ "state": "CA", "barNumber": "000000", "attorneyName": "Jane Smith" }],
-  "score": 0,
+  "score": 55,
   "status": "pending",
   "verified": false,
   "verifiedDate": null,
