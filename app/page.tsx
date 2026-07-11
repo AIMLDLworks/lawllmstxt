@@ -6,6 +6,7 @@ const BASE = "https://lawllmstxt.com";
 const LIFETIME_PRICE = "$49";
 const GUMROAD_URL = "https://lawllmstxt.gumroad.com/l/lifetime";
 const FREE_URL = "https://lawllmstxt.gumroad.com/l/freelisting";
+const GENERATOR_URL = "https://firepencil.ai/llms-txt-generator/";
 const AVATAR_COLORS = ["#1F3A5F", "#2E75B6", "#1D9E75", "#D85A30", "#7F77DD", "#D4537E"];
 
 const STATS = [
@@ -176,6 +177,17 @@ export default function HomePage({ searchParams }: { searchParams: { area?: stri
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Generate llms.txt CTA */}
+      <section className="overflow-hidden rounded-2xl bg-gradient-to-r from-[#eef4fb] to-[#e3ecf7] px-6 py-6 ring-1 ring-slate-900/5">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-brand">Don&rsquo;t have an llms.txt file yet?</h2>
+            <p className="mt-1 text-sm text-slate-600">Generate one for free in minutes, then list your firm below.</p>
+          </div>
+          <a href={GENERATOR_URL} target="_blank" rel="noopener noreferrer" className="shrink-0 rounded-lg bg-brand-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90">Generate llms.txt for free &rarr;</a>
         </div>
       </section>
 
