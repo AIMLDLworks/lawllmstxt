@@ -108,7 +108,7 @@ export default function HomePage({ searchParams }: { searchParams: { area?: stri
           Get found by AI
         </span>
         <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-bold tracking-tight text-brand sm:text-6xl">
-          The world&rsquo;s first llms.txt directory for U.S. law firms
+          The world&rsquo;s first <span className="text-brand-accent">llms.txt directory</span> for U.S. law firms
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
           Get your law firm found, understood, and cited by AI assistants like ChatGPT, Gemini, and Claude.
@@ -123,7 +123,7 @@ export default function HomePage({ searchParams }: { searchParams: { area?: stri
       {/* Why it matters */}
       <section className="rounded-2xl bg-brand-light/50 px-6 py-12 text-center ring-1 ring-slate-900/5">
         <h2 className="mx-auto max-w-3xl text-2xl font-bold tracking-tight text-brand sm:text-3xl">Make sure AI gets your firm right</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
+        <p className="mx-auto mt-4 max-w-4xl text-base leading-relaxed text-slate-600">
           When clients ask AI for legal help, the firms with a verified llms.txt are the ones it finds and cites.
         </p>
       </section>
