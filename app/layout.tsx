@@ -53,6 +53,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               not an endorsement of any firm.
             </p>
           </div>
+          <div className="border-t border-slate-100">
+            <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-4 text-xs text-slate-500">
+              <span>&copy; 2026 LawLLMsTxt. All rights reserved.</span>
+              <span>
+                This LawLLMsTxt directory is owned and operated by{" "}
+                <a href="https://enthiram.ai" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-accent hover:underline">Enthiram.ai</a>
+              </span>
+            </div>
+          </div>
         </footer>
       </body>
     </html>
