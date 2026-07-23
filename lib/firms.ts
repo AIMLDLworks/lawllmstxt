@@ -47,6 +47,7 @@ export function getAllFirms(): PublicFirm[] {
     .filter((f) => f.endsWith(".json"))
     .map((f) => JSON.parse(fs.readFileSync(path.join(FIRMS_DIR, f), "utf-8")) as Firm)
     .map(toPublic)
+    .filter((f) => !/example-/i.test(f.websiteUrl))
     .filter(isActive)
     .sort((a, b) => {
       // Lifetime firms first, then by name.

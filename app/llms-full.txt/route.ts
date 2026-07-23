@@ -1,9 +1,6 @@
 import { getAllFirms, practiceLabel, jurisdictionName, PRACTICE_AREAS } from "@/lib/firms";
 
-// A fuller, content-rich version of the directory for AI systems that prefer
-// one complete file (llms-full.txt).
 export const dynamic = "force-static";
-
 const BASE = "https://lawllmstxt.com";
 
 export function GET() {
@@ -32,6 +29,9 @@ export function GET() {
   lines.push("");
 
   lines.push("## Full firm profiles");
+  if (!firms.length) {
+    lines.push("The directory is newly launched. Be the first firm listed at " + BASE + "/#pricing.");
+  }
   for (const f of firms) {
     const areas = f.practiceAreas.map(practiceLabel).join(", ");
     const juris = f.jurisdictions.map(jurisdictionName).join(", ");

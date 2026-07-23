@@ -275,7 +275,7 @@ export default function HomePage({ searchParams }: { searchParams: { area?: stri
               </div>
             </div>
           ))}
-          {filtered.length === 0 && <p className="col-span-full py-8 text-center text-sm text-slate-500">No firms listed in this area yet.</p>}
+          {filtered.length === 0 && <p className="col-span-full py-8 text-center text-sm text-slate-500">No firms listed yet. Be the first to list your firm.</p>}
         </div>
       </section>
 

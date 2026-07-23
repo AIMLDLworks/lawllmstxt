@@ -1,9 +1,6 @@
 import { getAllFirms, practiceLabel, jurisdictionName, PRACTICE_AREAS } from "@/lib/firms";
 
-// Serves LawLLMsTxt's own llms.txt at /llms.txt — a rich, machine-readable
-// summary of the directory plus every listed firm. Built statically.
 export const dynamic = "force-static";
-
 const BASE = "https://lawllmstxt.com";
 
 export function GET() {
@@ -49,10 +46,14 @@ export function GET() {
   lines.push("");
 
   lines.push("## Listed firms");
-  for (const f of firms) {
-    const areas = f.practiceAreas.map(practiceLabel).join(", ");
-    const juris = f.jurisdictions.map(jurisdictionName).join(", ");
-    lines.push(`- [${f.firmName}](${BASE}/firm/${f.slug}): ${areas} in ${juris}. llms.txt: ${f.llmsTxtUrl}`);
+  if (firms.length) {
+    for (const f of firms) {
+      const areas = f.practiceAreas.map(practiceLabel).join(", ");
+      const juris = f.jurisdictions.map(jurisdictionName).join(", ");
+      lines.push(`- [${f.firmName}](${BASE}/firm/${f.slug}): ${areas} in ${juris}. llms.txt: ${f.llmsTxtUrl}`);
+    }
+  } else {
+    lines.push("The directory is newly launched. Be the first firm listed at " + BASE + "/#pricing.");
   }
   lines.push("");
 
